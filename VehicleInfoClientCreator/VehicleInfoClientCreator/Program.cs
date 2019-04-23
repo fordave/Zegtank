@@ -17,13 +17,8 @@ namespace VehicleInfoClientCreator
         private const string vehicleExChangeName = "vehicle";
 
         private const string message_routionkey = "vehicle.kede.message";
+
         private const string navigationpath_routingkey = "vehicle.kede.navigationpath";
-
-        private const string pickingTaskRoutingkey = "pickingTaskStatus";
-
-        private static readonly string navigationInfoRoutingKey = "vehicleInfo";
-
-        private static readonly string routinesRoutingkey = "vehicleRoutines";
 
         static void Main(string[] args)
         {
@@ -65,7 +60,7 @@ namespace VehicleInfoClientCreator
                 //SendMessage(channel, vehicleExChangeName, routinesRoutingkey, message.ToString());
                 for (var count = 7; count > 0; count--)
                 {
-                   var message = GetTaskCountString("dave" + index);
+                    var message = GetTaskCountString("dave" + index);
                     SendMessage(channel, vehicleExChangeName, message_routionkey, message.ToString());
                     Thread.Sleep(500);
                     //message = GetPickingTaskString("dave" + index, "test" + count, $"({x},{y})");
@@ -89,7 +84,6 @@ namespace VehicleInfoClientCreator
 
         private static JToken GetTaskCountString(string vehicleId)
         {
-
             var item1s = new Dictionary<string, int>();
             item1s.Add("1", 1);
             item1s.Add("2", 1);
@@ -99,7 +93,7 @@ namespace VehicleInfoClientCreator
             {
                 id = vehicleId,
                 type = 7,
-                batchId = "OB0001",
+                batchId = $"OB{new Random().Next(1,100):d4}",
                 itemId = "22",
                 items = item1s,
                 area = new { x = 1, y = 1 },
@@ -179,8 +173,6 @@ namespace VehicleInfoClientCreator
                 info["charging"] = false;
             }
             return token;
-
         }
-
     }
 }
